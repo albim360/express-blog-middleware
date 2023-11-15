@@ -25,6 +25,10 @@ app.get("/", homeController.index);
 // Usa il router dei post
 app.use('/posts', postRouter);
 
+app.use((req, res) => {
+    res.status(404).json({ error: 'Pagina non trovata' });
+});
+
 app.use(errorHandler);
 
 app.listen(process.env.PORT || 3000, () => {
