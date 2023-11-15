@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const postsController = require('../controllers/posts');
 const multer = require('multer');
+const auth = require('../middlewares/auth');
+const errorHandler = require('../middlewares/errorHandler');
 
 // index
 router.get('/', postsController.index);
