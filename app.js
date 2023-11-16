@@ -2,17 +2,16 @@ const express = require('express');
 const dotenv = require('dotenv');
 const multer = require('multer');
 
-
 const homeController = require('./controllers/home');
 const postsController = require('./controllers/posts'); 
 
 const postRouter = require('./routers/posts'); 
+const authRouter = require('./routers/auth'); 
 
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
 
 dotenv.config();
-
 
 const app = express();
 
@@ -25,9 +24,8 @@ app.get("/", homeController.index);
 // Usa il router dei post
 app.use('/posts', postRouter);
 
-app.use((req, res) => {
-    res.status(404).json({ error: 'Pagina non trovata' });
-});
+// Usa il router di autenticazione
+app.use('/login', authRouter);
 
 app.use(errorHandler);
 

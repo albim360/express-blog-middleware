@@ -104,22 +104,13 @@ function store(req, res) {
   const filePath = path.resolve(__dirname, "../db.json");
   fs.writeFileSync(filePath, json);
 
-  // Genera un token JWT
-  const token = jwt.sign(
-    { id: req.user.id, username: req.user.username },
-    process.env.SECRET_KEY,
-    {
-      expiresIn: "1h",
-    }
-  );
-
   // Rispondi con HTML o JSON
   if (req.accepts("html")) {
     // Redirect in caso di richiesta HTML
     res.redirect(`/posts/${slug}`);
   } else if (req.accepts("json")) {
-    // Includi il token nella risposta JSON
-    res.json({ newPost, token });
+    // Non è necessario generare un nuovo token qui
+    res.json({ newPost });
   } else {
     // Ritorna il testo di default in caso di richiesta diversa da HTML o JSON
     res.send("Post creato");

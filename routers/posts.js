@@ -9,7 +9,7 @@ const errorHandler = require('../middlewares/errorHandler');
 router.get('/', postsController.index);
 
 // store 
-router.post('/', auth, multer({ dest: 'public/imgs/posts' }).single('image'), express.urlencoded({ extended: true }), postsController.store);
+router.post('/', auth, multer({ dest: 'public/imgs/posts' }).single('image'), postsController.store);
 
 // show
 router.get('/:slug', postsController.show);
